@@ -13,6 +13,12 @@
  */
 
 
+ /*
+ PROCESS
+
+ 1. 
+ */
+
 document.addEventListener(`DOMContentLoaded`, () => fetchData())
 
 function fetchData (){
