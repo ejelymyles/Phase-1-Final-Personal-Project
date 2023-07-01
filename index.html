@@ -4,9 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="index.js"></script>
+    <title>BuildAPlaylist</title>
 </head>
 <body>
-    <script src="index.js"></script>
+    <h1> Build Your Playlist</h1>
+    <p>
+        Going on a roadtrip? Hitting the gym? Studying for finals? Or simply want to unwinde and relax?
+        use the search fields below to find your favorite songs and artists to build you perfect playlist!
+    </p>
+
+   <form>
+    <label for = "songName"> Song name</label>
+    <input id="searchBySong" type="text" placeholder="Enter song name here"/>
+    <label for = "ArtistName"> Artist</label>
+    <input id="searchByArtist" type="text" placeholder="Enter artist name here"/>
+    <input type="submit">
+   </form>
+
+   <hr></hr>
+   <h3>Track List</h3>
+   <ul id="tracklist"></ul>
 </body>
 </html>
