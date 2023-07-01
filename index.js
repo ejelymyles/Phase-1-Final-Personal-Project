@@ -2,7 +2,7 @@
 // Artist name option 2 -  const artistName = recordings[0][`artist-credit`][0].name;  
 // const songTitle = recordings[0].title
 // const albumTitle = recordings[0].releases[0].title
-// const explicitOrClean = recordings[0].disambiguation
+// const explicitOrClean = recordings[0].disambiguation (write in an If statement - if undefined then default to "something")
 // const releaseDate = recordings[0][`first-release-date`].slice(0,4)
 
 /* TIME VARIABLES
@@ -16,7 +16,7 @@
 document.addEventListener(`DOMContentLoaded`, () => fetchData())
 
 function fetchData (){
-    fetch("https://musicbrainz.org/ws/2/recording?query=artist:%22Future%22%20AND%20recording:%22712PM%22&fmt=json")
+    fetch("https://musicbrainz.org/ws/2/recording?query=artist:future%22%20AND%20recording:%22i%27m%20dat%20nigga%22&fmt=json")
     .then((resp) => resp.json())
     .then((data) => {
         const recordings = data.recordings;
@@ -36,8 +36,7 @@ function fetchData (){
         console.log(albumTitle);
         console.log(explicitOrClean);
         console.log(releaseDate);
-        console.log(songTime);
         console.log(formattedTime)
     })
-    .catch(error => console.log("oops, this is an error")); 
+    .catch(error => console.log("Sorry, this song is not available")); 
 }
