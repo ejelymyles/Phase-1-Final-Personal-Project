@@ -87,7 +87,8 @@ function addSong(){
                 songButton.setAttribute(`class`, `songButton`)
                 songButton.setAttribute(`id`, `${songTitle}-button`)
                 songButton.innerText = `Remove`;
-                playlistContainer.appendChild(songButton);
+                // playlistContainer.appendChild(songButton);
+                songInfo.appendChild(songButton);
 
                 songButton.addEventListener(`click`, (e) => {
                     if (e.target.innerText === `remove`){
