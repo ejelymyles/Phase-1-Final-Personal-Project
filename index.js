@@ -82,9 +82,22 @@ function addSong(){
                 const playlistContainer = document.getElementById(`tracklistContainer`)
                 playlistContainer.appendChild(newSong);
                 
+                const songButton = document.createElement(`button`)
+                songButton.setAttribute(`class`, `songButton`)
+                songButton.setAttribute(`id`, `${songTitle}-button`)
+                songButton.innerText = `Remove`;
+                playlistContainer.appendChild(songButton);
+                songButton.addEventListener(`click`, (e) => {
+                    if (e.target.innerText === `remove`){
+                    } newSong.remove()
+                      songButton.remove()
+                      breakLine.remove()
+                })
+
                 const breakLine = document.createElement(`hr`);
                 breakLine.setAttribute(`class`, `breakLine`); 
                 playlistContainer.appendChild(breakLine);
+
             
         })
         .catch(error => console.log("Sorry, this song is not available")); 
@@ -100,9 +113,8 @@ function addSong(){
 - takes those variables and interpolates them into the fetch url - DONE
 - receives the fetch back and turns the response into json - DONE
 - grabs the songTitle, artistName, albumTitle, explicitOrClean, and releaseDate elements stored in variables - DONE
-
-- creates an element (li or paragraph??) that contains the songTitle, artistName, albumTitle. needs class name = "tracklist item", needs id - "${songTitle} containter"
-- appends it to the dom in the ul container - store the ul contianer to a variable = tracklistContainer
+- creates an element (li or paragraph??) that contains the songTitle, artistName, albumTitle. needs class name = "tracklist item", needs id - "${songTitle} containter" - DONE
+- appends it to the dom in the ul container - store the ul contianer to a variable = tracklistContainer - DONE
 - creates a button with the innertext (remove) and a class of "remove button"
 */
 
