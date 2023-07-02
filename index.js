@@ -46,13 +46,14 @@ function addSong(){
         e.preventDefault()
         const songValue = songInput.value;
         const artistValue = artistInput.value;
-        console.log(songValue)
-        console.log(artistValue)
+        // console.log(songValue)
+        // console.log(artistValue)
 
         fetch(`https://musicbrainz.org/ws/2/recording?query=artist:${encodeURIComponent(artistValue)}%20AND%20recording:${encodeURIComponent(songValue)}&fmt=json`)
         .then((resp) => resp.json())
         .then((data) => {
             const recordings = data.recordings;
+            const targetArray = recordings[0]
             const artistName = recordings[0][`artist-credit`][0].name; 
             const songTitle = recordings[0].title;
             const albumTitle = recordings[0].releases[0].title;
@@ -63,13 +64,28 @@ function addSong(){
             const minutes = Math.floor(songTime / 60);
             const seconds = songTime % 60;
             const formattedTime = `${minutes}:${seconds.toString().padStart(2, `0`)}`; 
-            console.log(data);
-            console.log(artistName);
-            console.log(songTitle);
-            console.log(albumTitle);
-            console.log(explicitOrClean);
-            console.log(releaseDate);
-            console.log(formattedTime)
+            // console.log(data);
+            // console.log(targetArray)
+            // console.log(artistName);
+            // console.log(songTitle);
+            // console.log(albumTitle);
+            // console.log(explicitOrClean);
+            // console.log(releaseDate);
+            // console.log(formattedTime)
+           
+
+                const newSong = document.createElement(`li`);
+                newSong.setAttribute(`class`, `tracklistItem`);
+                newSong.setAttribute(`id`, `${songTitle}-item`);
+                newSong.textContent = `${songTitle}, ${artistName}, ${albumTitle}`;
+                
+                const playlistContainer = document.getElementById(`tracklistContainer`)
+                playlistContainer.appendChild(newSong);
+                
+                const breakLine = document.createElement(`hr`);
+                breakLine.setAttribute(`class`, `breakLine`); 
+                playlistContainer.appendChild(breakLine);
+            
         })
         .catch(error => console.log("Sorry, this song is not available")); 
      }
@@ -81,11 +97,11 @@ function addSong(){
 - listens for a submit on the form (add event listner to form) - DONE
 - when the submit happens, it follows instructions below:
 - takes the song name value AND the Arist Value and stores them in variables = songValue & artistValue -DONE
-- takes those variables and interpolates them into the fetch url
+- takes those variables and interpolates them into the fetch url - DONE
+- receives the fetch back and turns the response into json - DONE
+- grabs the songTitle, artistName, albumTitle, explicitOrClean, and releaseDate elements stored in variables - DONE
 
-- receives the fetch back and turns the response into json
-- grabs the songTitle, artistName, albumTitle, explicitOrClean, and releaseDate elements stored in variables above
-- creates an element (li or paragraph??) that contains the songTitle, artistName, albumTitle. needs  class name = "tracklist item"
+- creates an element (li or paragraph??) that contains the songTitle, artistName, albumTitle. needs class name = "tracklist item", needs id - "${songTitle} containter"
 - appends it to the dom in the ul container - store the ul contianer to a variable = tracklistContainer
 - creates a button with the innertext (remove) and a class of "remove button"
 */
