@@ -38,20 +38,51 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
 
 function addSong(){
-    const  addSongForm = document.getElementById(`submissionForm`)
-    console.log('im still working')
-    addSongForm.addEventListener(`submit`, () => {
-        
-    })
-}
+    const  addSongForm = document.getElementById(`submissionForm`);
+    const songInput = document.getElementById(`searchBySong`);
+    const artistInput = document.getElementById(`searchByArtist`);
+    
+    addSongForm.addEventListener(`submit`, (e) => {
+        e.preventDefault()
+        const songValue = songInput.value;
+        const artistValue = artistInput.value;
+        console.log(songValue)
+        console.log(artistValue)
+
+        fetch(`https://musicbrainz.org/ws/2/recording?query=artist:${encodeURIComponent(artistValue)}%20AND%20recording:${encodeURIComponent(songValue)}&fmt=json`)
+        .then((resp) => resp.json())
+        .then((data) => {
+            const recordings = data.recordings;
+            const artistName = recordings[0][`artist-credit`][0].name; 
+            const songTitle = recordings[0].title;
+            const albumTitle = recordings[0].releases[0].title;
+            const explicitOrClean = recordings[0].disambiguation;
+            const releaseDate = recordings[0][`first-release-date`].slice(0,4);
+            const duration = recordings[0].length;
+            const songTime = Math.floor(duration / 1000);
+            const minutes = Math.floor(songTime / 60);
+            const seconds = songTime % 60;
+            const formattedTime = `${minutes}:${seconds.toString().padStart(2, `0`)}`; 
+            console.log(data);
+            console.log(artistName);
+            console.log(songTitle);
+            console.log(albumTitle);
+            console.log(explicitOrClean);
+            console.log(releaseDate);
+            console.log(formattedTime)
+        })
+        .catch(error => console.log("Sorry, this song is not available")); 
+     }
+)}
 
 
 /* ADD SONG FUNCTION
-- find a way to grab the form element and store in in a variable = Submission Form
-- listens for a submit on the form (add event listner to form)
+- find a way to grab the form element and store in in a variable = Submission Form - DONE
+- listens for a submit on the form (add event listner to form) - DONE
 - when the submit happens, it follows instructions below:
-- takes the song name value AND the Arist Value and stores them in variables = songSub & artistSub
+- takes the song name value AND the Arist Value and stores them in variables = songValue & artistValue -DONE
 - takes those variables and interpolates them into the fetch url
+
 - receives the fetch back and turns the response into json
 - grabs the songTitle, artistName, albumTitle, explicitOrClean, and releaseDate elements stored in variables above
 - creates an element (li or paragraph??) that contains the songTitle, artistName, albumTitle. needs  class name = "tracklist item"
