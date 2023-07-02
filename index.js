@@ -1,4 +1,4 @@
-// Artist name option 1 - const artistName = recordings[0][`artist-credit`][0].artist.name;
+//Artist name option 1 - const artistName = recordings[0][`artist-credit`][0].artist.name;
 // Artist name option 2 -  const artistName = recordings[0][`artist-credit`][0].name;  
 // const songTitle = recordings[0].title
 // const albumTitle = recordings[0].releases[0].title
@@ -6,32 +6,44 @@
 // const releaseDate = recordings[0][`first-release-date`].slice(0,4)
 
 /* TIME VARIABLES
- const songTime = Math.floor(duration / 1000);
- const minutes = Math.floor(songTime / 60);
- const seconds = songTime % 60;
- const formattedTime = `${minutes}:${seconds.toString().padStart(2, `0`)}`; 
- */
+const songTime = Math.floor(duration / 1000);
+const minutes = Math.floor(songTime / 60);
+const seconds = songTime % 60;
+const formattedTime = `${minutes}:${seconds.toString().padStart(2, `0`)}`; 
+*/
 
 
- /*
- FUNCTIONS TO BUILD
- 1. build a function to add song (details below)
- 2. build a function to remove song (details below)
- 3. build a function to add mouseover (details below)
- 4. think about more functinoality to add
- */
+/*
+FUNCTIONS TO BUILD
+1. build a function to add song (details below)
+2. build a function to remove song (details below)
+3. build a function to add mouseover (details below)
+4. think about more functinoality to add (filter/sort list, song counter)
+*/
 
- /*
- PROCESS
- 1. comment out current code block and move it elsehwere for late use
- 2. simplify domcontentloaded with a simple console log
- 3. begin building the addSong Function
- */
+/*
+PROCESS
+1. comment out current code block and move it elsehwere for late use
+2. simplify domcontentloaded with a simple console log
+3. begin building the addSong Function
+*/
+
+
 
 document.addEventListener(`DOMContentLoaded`, () => {
-    console.log("just gettin started")
+    console.log (`just getting started`)
+    addSong();
 }
 )
+
+
+function addSong(){
+    const  addSongForm = document.getElementById(`submissionForm`)
+    console.log('im still working')
+    addSongForm.addEventListener(`submit`, () => {
+        
+    })
+}
 
 
 /* ADD SONG FUNCTION
@@ -46,6 +58,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 - appends it to the dom in the ul container - store the ul contianer to a variable = tracklistContainer
 - creates a button with the innertext (remove) and a class of "remove button"
 */
+
 
 /* ADD REMOVE SONG FUNCTION 
 - add an event listener that listents for clicks anywhere in the DOM
