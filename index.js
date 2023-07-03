@@ -64,24 +64,43 @@ function addSong(){
             // console.log(releaseDate);
             // console.log(formattedTime)
              //console.log(releaseId); 
-             fetchPhoto(releaseId); 
-           
-                const newSong = document.createElement(`li`);
-                newSong.setAttribute(`class`, `tracklistItem`);
-                newSong.setAttribute(`id`, `${songTitle}-item`);
+
+             // fetch the photo from another data source 
+             //build li element for each song 
+             const newSong = document.createElement(`li`);
+             newSong.setAttribute(`class`, `tracklistItem`);
+             newSong.setAttribute(`id`, `${songTitle}-item`);
+             
+             // create photo element
+             const thumbnaiElement = document.createElement(`img`)
+             thumbnaiElement.setAttribute(`src`, ``);
+             thumbnaiElement.setAttribute(`alt`, `Album Cover`);
+             thumbnaiElement.setAttribute(`class`, `albumCover`)
+             thumbnaiElement.setAttribute(`id`, `${songTitle}-photo`)
+
+             // fetch and set the photo
+             fetchPhoto(releaseId, thumbnaiElement); 
+
+                // build li items for every song
                 songInfo = document.createElement(`div`);
                 songInfo.innerHTML = `${songTitle}<br>${artistName}<br>${albumTitle}`;
+
+                //append the photo & song info to the newSong element
+                newSong.appendChild(thumbnaiElement);
                 newSong.appendChild(songInfo); 
-                
+
+                // append every song to the OL 
                 const playlistContainer = document.getElementById(`tracklistContainer`)
                 playlistContainer.appendChild(newSong);
-                
+
+                // create a remove button for every song and append it to the song info
                 const songButton = document.createElement(`button`)
                 songButton.setAttribute(`class`, `songButton`)
                 songButton.setAttribute(`id`, `${songTitle}-button`)
                 songButton.innerText = `Remove`;
                 songInfo.appendChild(songButton);
 
+                // add event listener to remove button
                 songButton.addEventListener(`click`, (e) => {
                     if (e.target.innerText === `remove`){
                     } newSong.remove()
@@ -89,10 +108,12 @@ function addSong(){
                       breakLine.remove()
                 })
 
+                // add a line between each song
                 const breakLine = document.createElement(`hr`);
                 breakLine.setAttribute(`class`, `breakLine`); 
                 playlistContainer.appendChild(breakLine);
 
+                // clear the song & artist inputs for the next entry 
                 songInput.value = ``;
                 artistInput.value =``; 
         })
@@ -102,26 +123,18 @@ function addSong(){
 
 
 
-
-
-
-function fetchPhoto(releaseId){
+function fetchPhoto(releaseId, thumbnaiElement){
     fetch (`https://coverartarchive.org/release-group/${releaseId}`) 
     .then((resp) => resp.json())
     .then((data) => {
        // console.log(data);
-        const thumbnailPhoto = data.images[0].thumbnails[250]
-        console.log(thumbnailPhoto)
+        const thumbnailPhoto = data.images[0].thumbnails[250];
+        thumbnaiElement.src = thumbnailPhoto
     })
     .catch(error => console.log(`the photo fetch did not work`));
 }
 
 
-// function practiceFetch() {
-//     fetch(`https://musicbrainz.org/ws/2/recording?query=artist:future%22%20AND%20recording:%22712PM%22&fmt=json`)
-//     .then((resp) => resp.json())
-//     .then((data) => console.log(data))
-// }
 
 /* ADD MOUSEOVER FUNCTION
 - add an event listener that listens for a mouseover on the image or the song title 
