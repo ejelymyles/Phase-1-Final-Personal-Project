@@ -65,6 +65,12 @@ function addSong(){
              thumbnaiElement.setAttribute(`class`, `albumCover`)
              thumbnaiElement.setAttribute(`id`, `${songTitle}-photo`)
 
+            //  //add event listener to photo
+            //  thumbnaiElement.addEventListener(`mouseover`, (e) => {
+            //     if (e.target.classList.contains(`albumCover`)){
+            //     }
+            //  })
+
              // fetch and set the photo
              fetchPhoto(releaseId, thumbnaiElement); 
 
@@ -122,6 +128,12 @@ function fetchPhoto(releaseId, thumbnaiElement){
 }
 
 
+// function hoverOverPhoto (){
+//     document.addEventListener(`mouseover`, (e) => {
+//         if (e.target.classList.contains(`albumCover`)){
+//         }
+//     })
+// }
 
 /* ADD MOUSEOVER FUNCTION
 - add an event listener that listens for a mouseover on the image or the song title 
