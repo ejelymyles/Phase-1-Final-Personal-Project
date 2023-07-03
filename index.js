@@ -1,12 +1,11 @@
 
 /*
-FUNCTIONS TO BUILD
-NEXT STEPS
-1 re-read and understand your code 
-3. build a function to add mouseover (details below)
-4. build a mouseout function?
-5. figure out array iteration
-4. think about more functinoality to add (filter/sort list, song counter)
+NEXT STEPS 
+1. build an array iteration 
+2. build a function to add mouseover (details below)
+3. build a mouseout function?
+4. figure out array iteration
+5. think about more functinoality to add (filter/sort list, song counter, mouseover & mouseout)
 */
 
 
@@ -30,6 +29,7 @@ function addSong(){
         fetch(`https://musicbrainz.org/ws/2/recording?query=artist:${encodeURIComponent(artistValue)}%20AND%20recording:${encodeURIComponent(songValue)}&fmt=json`)
         .then((resp) => resp.json())
         .then((data) => {
+            
             const recordings = data.recordings;
             const targetArray = recordings[0]
             const artistName = recordings[0][`artist-credit`][0].name; 
@@ -43,7 +43,7 @@ function addSong(){
             const seconds = songTime % 60;
             const formattedTime = `${minutes}:${seconds.toString().padStart(2, `0`)}`; 
             const releaseId = recordings[0].releases[0]["release-group"].id
-            // console.log(data);
+             console.log(data);
             // console.log(targetArray)
             // console.log(artistName);
             // console.log(songTitle);
@@ -51,26 +51,21 @@ function addSong(){
             // console.log(explicitOrClean);
             // console.log(releaseDate);
             // console.log(formattedTime)
-             //console.log(releaseId); 
+            //console.log(releaseId); 
 
              //build li element for each song 
              const newSong = document.createElement(`li`);
              newSong.setAttribute(`class`, `tracklistItem`);
              newSong.setAttribute(`id`, `${songTitle}-item`);
              
-             // create photo element
+             // create photo element for each song
              const thumbnaiElement = document.createElement(`img`)
              thumbnaiElement.setAttribute(`src`, ``);
              thumbnaiElement.setAttribute(`alt`, `Album Cover`);
              thumbnaiElement.setAttribute(`class`, `albumCover`)
              thumbnaiElement.setAttribute(`id`, `${songTitle}-photo`)
 
-            //  //add event listener to photo
-            //  thumbnaiElement.addEventListener(`mouseover`, (e) => {
-            //     if (e.target.classList.contains(`albumCover`)){
-            //     }
-            //  })
-
+            
              // fetch and set the photo
              fetchPhoto(releaseId, thumbnaiElement); 
 
@@ -109,6 +104,7 @@ function addSong(){
                 // clear the song & artist inputs for the next entry 
                 songInput.value = ``;
                 artistInput.value =``; 
+            
         })
         .catch(error => alert("Sorry, this song is not available")); 
      }
@@ -126,6 +122,10 @@ function fetchPhoto(releaseId, thumbnaiElement){
     })
     .catch(error => alert(`Sorry, the album photo is not available for this song`));
 }
+
+
+
+
 
 
 // function hoverOverPhoto (){
