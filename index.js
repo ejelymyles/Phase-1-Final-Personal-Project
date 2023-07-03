@@ -19,18 +19,12 @@ FUNCTIONS TO BUILD
 4. think about more functinoality to add (filter/sort list, song counter)
 */
 
-/*
-PROCESS
-1. comment out current code block and move it elsehwere for late use
-2. simplify domcontentloaded with a simple console log
-3. begin building the addSong Function
-*/
-
-
 
 document.addEventListener(`DOMContentLoaded`, () => {
-    console.log (`just getting started`)
+    console.log (`Dom content loaded fetch`)
     addSong();
+   // practiceFetch();
+   //fetchPhoto();
 }
 )
 
@@ -44,9 +38,7 @@ function addSong(){
         e.preventDefault()
         const songValue = songInput.value;
         const artistValue = artistInput.value;
-        // console.log(songValue)
-        // console.log(artistValue)
-
+      
         fetch(`https://musicbrainz.org/ws/2/recording?query=artist:${encodeURIComponent(artistValue)}%20AND%20recording:${encodeURIComponent(songValue)}&fmt=json`)
         .then((resp) => resp.json())
         .then((data) => {
@@ -62,6 +54,7 @@ function addSong(){
             const minutes = Math.floor(songTime / 60);
             const seconds = songTime % 60;
             const formattedTime = `${minutes}:${seconds.toString().padStart(2, `0`)}`; 
+            const releaseId = recordings[0].releases[0]["release-group"].id
             // console.log(data);
             // console.log(targetArray)
             // console.log(artistName);
@@ -70,15 +63,15 @@ function addSong(){
             // console.log(explicitOrClean);
             // console.log(releaseDate);
             // console.log(formattedTime)
+             //console.log(releaseId); 
+             fetchPhoto(releaseId); 
            
-
                 const newSong = document.createElement(`li`);
                 newSong.setAttribute(`class`, `tracklistItem`);
                 newSong.setAttribute(`id`, `${songTitle}-item`);
                 songInfo = document.createElement(`div`);
                 songInfo.innerHTML = `${songTitle}<br>${artistName}<br>${albumTitle}`;
                 newSong.appendChild(songInfo); 
-                // newSong.textContent = `${songTitle}\n${artistName}\n${albumTitle}`;
                 
                 const playlistContainer = document.getElementById(`tracklistContainer`)
                 playlistContainer.appendChild(newSong);
@@ -87,7 +80,6 @@ function addSong(){
                 songButton.setAttribute(`class`, `songButton`)
                 songButton.setAttribute(`id`, `${songTitle}-button`)
                 songButton.innerText = `Remove`;
-                // playlistContainer.appendChild(songButton);
                 songInfo.appendChild(songButton);
 
                 songButton.addEventListener(`click`, (e) => {
@@ -109,6 +101,27 @@ function addSong(){
 )}
 
 
+
+
+
+
+function fetchPhoto(releaseId){
+    fetch (`https://coverartarchive.org/release-group/${releaseId}`) 
+    .then((resp) => resp.json())
+    .then((data) => {
+       // console.log(data);
+        const thumbnailPhoto = data.images[0].thumbnails[250]
+        console.log(thumbnailPhoto)
+    })
+    .catch(error => console.log(`the photo fetch did not work`));
+}
+
+
+// function practiceFetch() {
+//     fetch(`https://musicbrainz.org/ws/2/recording?query=artist:future%22%20AND%20recording:%22712PM%22&fmt=json`)
+//     .then((resp) => resp.json())
+//     .then((data) => console.log(data))
+// }
 
 /* ADD MOUSEOVER FUNCTION
 - add an event listener that listens for a mouseover on the image or the song title 
