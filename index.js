@@ -1,21 +1,11 @@
-//Artist name option 1 - const artistName = recordings[0][`artist-credit`][0].artist.name;
-// Artist name option 2 -  const artistName = recordings[0][`artist-credit`][0].name;  
-// const songTitle = recordings[0].title
-// const albumTitle = recordings[0].releases[0].title
-// const explicitOrClean = recordings[0].disambiguation (write in an If statement - if undefined then default to "something")
-// const releaseDate = recordings[0][`first-release-date`].slice(0,4)
-
-/* TIME VARIABLES
-const songTime = Math.floor(duration / 1000);
-const minutes = Math.floor(songTime / 60);
-const seconds = songTime % 60;
-const formattedTime = `${minutes}:${seconds.toString().padStart(2, `0`)}`; 
-*/
 
 /*
 FUNCTIONS TO BUILD
-1. build a function to add & remove songs (details below) - DONE
+NEXT STEPS
+1 re-read and understand your code 
 3. build a function to add mouseover (details below)
+4. build a mouseout function?
+5. figure out array iteration
 4. think about more functinoality to add (filter/sort list, song counter)
 */
 
@@ -23,8 +13,6 @@ FUNCTIONS TO BUILD
 document.addEventListener(`DOMContentLoaded`, () => {
     console.log (`Dom content loaded fetch`)
     addSong();
-   // practiceFetch();
-   //fetchPhoto();
 }
 )
 
@@ -65,7 +53,6 @@ function addSong(){
             // console.log(formattedTime)
              //console.log(releaseId); 
 
-             // fetch the photo from another data source 
              //build li element for each song 
              const newSong = document.createElement(`li`);
              newSong.setAttribute(`class`, `tracklistItem`);
@@ -81,7 +68,7 @@ function addSong(){
              // fetch and set the photo
              fetchPhoto(releaseId, thumbnaiElement); 
 
-                // build li items for every song
+                // build song info details for every song
                 songInfo = document.createElement(`div`);
                 songInfo.innerHTML = `${songTitle}<br>${artistName}<br>${albumTitle}`;
 
@@ -131,7 +118,7 @@ function fetchPhoto(releaseId, thumbnaiElement){
         const thumbnailPhoto = data.images[0].thumbnails[250];
         thumbnaiElement.src = thumbnailPhoto
     })
-    .catch(error => console.log(`the photo fetch did not work`));
+    .catch(error => alert(`Sorry, the album photo is not available for this song`));
 }
 
 
