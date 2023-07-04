@@ -11,7 +11,7 @@ NEXT STEPS
 
 document.addEventListener(`DOMContentLoaded`, () => {
     console.log (`Dom content loaded fetch`)
-    addSong();
+    addSong(); 
 }
 )
 
@@ -95,6 +95,7 @@ function addSong(){
                       songButton.remove()
                       breakLine.remove()
                 })
+                
 
                 // add a line between each song
                 const breakLine = document.createElement(`hr`);
@@ -122,7 +123,6 @@ function fetchPhoto(releaseId, thumbnaiElement){
     })
     .catch(error => alert(`Sorry, the album photo is not available for this song`));
 }
-
 
 
 
