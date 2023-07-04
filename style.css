@@ -1,16 +1,22 @@
 h1 {
-    color: red;
+    color: aliceblue;
     text-align: center;
+    margin: 0px;
+    padding: 15px;
     
 }
 
 p {
+    color:aliceblue;
     text-align: center;
+    margin: 8px;
+    padding: 8px;
 }
 
 #submissionForm {
     display: flex;
     justify-content: center;
+    padding-bottom: 10px;
 }
 
 
@@ -22,6 +28,7 @@ p {
 #headerLine {
     font-weight: bolder;
     border-width: 5px;
+    margin-top: 0px;
 }
 
 .breakLine {
@@ -42,4 +49,21 @@ p {
 
 .songInfo {
     margin: 5px;
+}
+
+#headerDiv {
+    background-image: linear-gradient(to bottom, hsl(261, 90%, 49%),rgb(124, 69, 225), rgb(154, 123, 213),rgb(188, 170, 245),
+    rgb(219, 199, 244),rgb(231, 219, 246));
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+h2 {
+    margin: 8px;
+    padding: 8px;
 }
