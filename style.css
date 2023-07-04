@@ -30,7 +30,7 @@ p {
 }
 
 .albumCover {
-    width: 100px;
+    width: 125px;
     height: auto;
 }
 
@@ -38,5 +38,8 @@ p {
     display: block;
     margin: 10px;
     text-align: center;
+}
 
+.songInfo {
+    margin: 5px;
 }
