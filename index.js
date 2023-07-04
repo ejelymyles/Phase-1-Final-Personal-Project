@@ -71,6 +71,7 @@ function addSong(){
 
                 // build song info details for every song
                 songInfo = document.createElement(`div`);
+                songInfo.setAttribute(`class`, `songInfo`)
                 songInfo.innerHTML = `${songTitle}<br>${artistName}<br>${albumTitle}`;
 
                 //append the photo & song info to the newSong element

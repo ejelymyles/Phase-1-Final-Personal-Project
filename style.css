@@ -33,3 +33,10 @@ p {
     width: 100px;
     height: auto;
 }
+
+.songButton {
+    display: block;
+    margin: 10px;
+    text-align: center;
+
+}
