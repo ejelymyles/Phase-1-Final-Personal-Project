@@ -116,10 +116,13 @@ function addSong(){
                 let playTimeInMS = timeInMsArray.reduce((acc, currentValue) => acc + currentValue,0)
                 
                 const playTimeInSeconds = Math.floor(playTimeInMS / 1000);
+                const playTimeHours = Math.floor(playTimeInSeconds / 3600);
                 const playTimeMinutes = Math.floor(playTimeInSeconds / 60);
                 const playTimeSeconds = playTimeInSeconds % 60;
-                const totalListeningTime = `${playTimeMinutes}:${playTimeSeconds.toString().padStart(2, `0`)}`;
-                console.log(totalListeningTime)
+                const totalListeningTime = `Your total listening time is ${playTimeHours} hrs, ${playTimeMinutes % 60} minutes & ${playTimeSeconds} seconds`;
+                console.log(totalListeningTime);
+                
+                
                
             
         })
