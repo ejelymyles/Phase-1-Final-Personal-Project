@@ -1,23 +1,18 @@
 
 /*
 NEXT STEPS 
-1. build an array iteration 
-2. build a function to add mouseover (details below)
-3. build a mouseout function?
-4. figure out array iteration
-5. think about more functinoality to add (filter/sort list, song counter, mouseover & mouseout)
+1. think about more functinoality to add (filter/sort list, song counter, mouseover & mouseout)
 */
 
 let timeInMsArray = [];
 const listenTimeElement = document.createElement(`h6`);
 
+
 document.addEventListener(`DOMContentLoaded`, () => {
     console.log (`Dom content loaded fetch`)
     addSong(); 
-    
 }
 )
-
 
 function addSong(){
     const  addSongForm = document.getElementById(`submissionForm`);
@@ -34,7 +29,6 @@ function addSong(){
         .then((data) => {
             
             const recordings = data.recordings;
-            const targetArray = recordings[0]
             const artistName = recordings[0][`artist-credit`][0].name; 
             const songTitle = recordings[0].title;
             const albumTitle = recordings[0].releases[0].title;
@@ -46,8 +40,7 @@ function addSong(){
             const seconds = songTime % 60;
             const formattedTime = `${minutes}:${seconds.toString().padStart(2, `0`)}`; 
             const releaseId = recordings[0].releases[0]["release-group"].id
-             console.log(data);
-            // console.log(targetArray)
+            console.log(data);
             // console.log(artistName);
             // console.log(songTitle);
             // console.log(albumTitle);
@@ -85,6 +78,11 @@ function addSong(){
                 const playlistContainer = document.getElementById(`tracklistContainer`)
                 playlistContainer.appendChild(newSong);
 
+                 // add a line between each song
+                 const breakLine = document.createElement(`hr`);
+                 breakLine.setAttribute(`class`, `breakLine`); 
+                 playlistContainer.appendChild(breakLine);
+
                 // create a remove button for every song and append it to the song info
                 const songButton = document.createElement(`button`)
                 songButton.setAttribute(`class`, `songButton`)
@@ -93,6 +91,7 @@ function addSong(){
                 songInfo.appendChild(songButton);
 
                 // add event listener to remove button
+                //removeButton(songButton, newSong, breakLine)
                 songButton.addEventListener(`click`, (e) => {
                     if (e.target.innerText === `remove`){
                     } newSong.remove()
@@ -100,12 +99,6 @@ function addSong(){
                       breakLine.remove()
                 })
                 
-
-                // add a line between each song
-                const breakLine = document.createElement(`hr`);
-                breakLine.setAttribute(`class`, `breakLine`); 
-                playlistContainer.appendChild(breakLine);
-
                 // clear the song & artist inputs for the next entry 
                 songInput.value = ``;
                 artistInput.value =``; 
@@ -142,12 +135,21 @@ function fetchPhoto(releaseId, thumbnaiElement){
     fetch (`https://coverartarchive.org/release-group/${releaseId}`) 
     .then((resp) => resp.json())
     .then((data) => {
-       // console.log(data);
+       
         const thumbnailPhoto = data.images[0].thumbnails[250];
         thumbnaiElement.src = thumbnailPhoto
     })
     .catch(error => alert(`Sorry, the album photo is not available for this song`));
 }
+
+// function removeButton(songButton, newSong, breakLine){
+//     songButton.addEventListener(`click`, (e) => {
+//         if (e.target.innerText === `remove`){
+//         } newSong.remove()
+//           songButton.remove()
+//           breakLine.remove()
+//     })
+// }
 
 
 /* ADD MOUSEOVER FUNCTION
