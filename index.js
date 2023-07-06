@@ -8,7 +8,6 @@ NEXT STEPS
 5. think about more functinoality to add (filter/sort list, song counter, mouseover & mouseout)
 */
 
-
 let timeInMsArray = [];
 
 document.addEventListener(`DOMContentLoaded`, () => {
@@ -112,11 +111,15 @@ function addSong(){
 
                 // push song duration to the time array to help build total palytime 
                 timeInMsArray.push(duration);
-                console.log(timeInMsArray);
 
-                // reduce the timeInmsArray to a single accumulated number
+                // reduce the timeInMsArray to a single accumulated number. Then convert the total number from MS to Minutes & Seconds 
                 let playTimeInMS = timeInMsArray.reduce((acc, currentValue) => acc + currentValue,0)
-                console.log(playTimeInMS)
+                
+                const playTimeInSeconds = Math.floor(playTimeInMS / 1000);
+                const playTimeMinutes = Math.floor(playTimeInSeconds / 60);
+                const playTimeSeconds = playTimeInSeconds % 60;
+                const totalListeningTime = `${playTimeMinutes}:${playTimeSeconds.toString().padStart(2, `0`)}`;
+                console.log(totalListeningTime)
                
             
         })
