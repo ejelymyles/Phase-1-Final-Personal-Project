@@ -9,6 +9,7 @@ NEXT STEPS
 */
 
 let timeInMsArray = [];
+const listenTimeElement = document.createElement(`h6`);
 
 document.addEventListener(`DOMContentLoaded`, () => {
     console.log (`Dom content loaded fetch`)
@@ -112,7 +113,7 @@ function addSong(){
                 // push song duration to the time array to help build total palytime 
                 timeInMsArray.push(duration);
 
-                // reduce the timeInMsArray to a single accumulated number. Then convert the total number from MS to Minutes & Seconds 
+                // reduce the timeInMsArray to a single accumulated number. Then convert the total number from MS to Hours, Minutes & Seconds 
                 let playTimeInMS = timeInMsArray.reduce((acc, currentValue) => acc + currentValue,0)
                 
                 const playTimeInSeconds = Math.floor(playTimeInMS / 1000);
@@ -120,7 +121,12 @@ function addSong(){
                 const playTimeMinutes = Math.floor(playTimeInSeconds / 60);
                 const playTimeSeconds = playTimeInSeconds % 60;
                 const totalListeningTime = `Your total listening time is ${playTimeHours} hrs, ${playTimeMinutes % 60} minutes & ${playTimeSeconds} seconds`;
-                console.log(totalListeningTime);
+                //console.log(totalListeningTime);
+
+                //append totalListeningTime to the Dom 
+                listenTimeElement.innerText = totalListeningTime
+                const trackListHeader = document.querySelector(`h2`)
+                trackListHeader.appendChild(listenTimeElement)
                 
                 
                
@@ -143,16 +149,6 @@ function fetchPhoto(releaseId, thumbnaiElement){
     .catch(error => alert(`Sorry, the album photo is not available for this song`));
 }
 
-
-
-
-
-// function hoverOverPhoto (){
-//     document.addEventListener(`mouseover`, (e) => {
-//         if (e.target.classList.contains(`albumCover`)){
-//         }
-//     })
-// }
 
 /* ADD MOUSEOVER FUNCTION
 - add an event listener that listens for a mouseover on the image or the song title 
