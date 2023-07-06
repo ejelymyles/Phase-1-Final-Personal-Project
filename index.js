@@ -1,18 +1,10 @@
-
-/*
-NEXT STEPS 
-1. think about more functinoality to add (filter/sort list, song counter, mouseover & mouseout)
-*/
-
 let timeInMsArray = [];
 const listenTimeElement = document.createElement(`h6`);
 
 
 document.addEventListener(`DOMContentLoaded`, () => {
-    console.log (`Dom content loaded fetch`)
     addSong(); 
-}
-)
+})
 
 function addSong(){
     const  addSongForm = document.getElementById(`submissionForm`);
@@ -83,21 +75,21 @@ function addSong(){
                 songButton.innerText = `Remove`;
                 songInfo.appendChild(songButton);
 
-                // clear the song & artist inputs for the next entry 
-                songInput.value = ``;
-                artistInput.value =``; 
-
                 // push song duration to the time array to help build total palytime 
                 timeInMsArray.push(duration);
 
                 // reduce the timeInmsArray to one total number
-                // convert the time from Ms to hours, minutes, seconds
+                // convert the time from Ms to hours, minutes, & seconds
                 // Append the time to the Dom
                 // invoke the function to update the Dom
                 updateTotalListeningTime(timeInMsArray, listenTimeElement);
 
                 // remove songs if the remove button is clicked 
                 removeButton (songButton, newSong, breakLine, timeInMsArray, duration, updateTotalListeningTime)
+
+                // clear the song & artist inputs for the next entry 
+                songInput.value = ``;
+                artistInput.value =``; 
         
                 
         })
