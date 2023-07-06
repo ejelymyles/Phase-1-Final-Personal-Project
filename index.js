@@ -90,15 +90,6 @@ function addSong(){
                 songButton.innerText = `Remove`;
                 songInfo.appendChild(songButton);
 
-                // add event listener to remove button
-                //removeButton(songButton, newSong, breakLine)
-                songButton.addEventListener(`click`, (e) => {
-                    if (e.target.innerText === `remove`){
-                    } newSong.remove()
-                      songButton.remove()
-                      breakLine.remove()
-                })
-                
                 // clear the song & artist inputs for the next entry 
                 songInput.value = ``;
                 artistInput.value =``; 
@@ -106,24 +97,31 @@ function addSong(){
                 // push song duration to the time array to help build total palytime 
                 timeInMsArray.push(duration);
 
-                // reduce the timeInMsArray to a single accumulated number. Then convert the total number from MS to Hours, Minutes & Seconds 
-                let playTimeInMS = timeInMsArray.reduce((acc, currentValue) => acc + currentValue,0)
-                
-                const playTimeInSeconds = Math.floor(playTimeInMS / 1000);
-                const playTimeHours = Math.floor(playTimeInSeconds / 3600);
-                const playTimeMinutes = Math.floor(playTimeInSeconds / 60);
-                const playTimeSeconds = playTimeInSeconds % 60;
-                const totalListeningTime = `Your total listening time is ${playTimeHours} hrs, ${playTimeMinutes % 60} minutes & ${playTimeSeconds} seconds`;
-                //console.log(totalListeningTime);
 
-                //append totalListeningTime to the Dom 
-                listenTimeElement.innerText = totalListeningTime
-                const trackListHeader = document.querySelector(`h2`)
-                trackListHeader.appendChild(listenTimeElement)
-                
-                
-               
+                // reduce the timeInMsArray to a single accumulated number. Then convert the total number from Milliseconds to Hours, Minutes & Seconds 
+                function updateTotalListeningTime(){ 
+                    let playTimeInMS = timeInMsArray.reduce((acc, currentValue) => acc + currentValue,0)
+
+                    const playTimeInSeconds = Math.floor(playTimeInMS / 1000);
+                    const playTimeHours = Math.floor(playTimeInSeconds / 3600);
+                    const playTimeMinutes = Math.floor(playTimeInSeconds / 60);
+                    const playTimeSeconds = playTimeInSeconds % 60;
+                    const totalListeningTime = `Your total listening time is ${playTimeHours} hrs, ${playTimeMinutes % 60} minutes & ${playTimeSeconds} seconds`;
             
+                    //append totalListeningTime to the Dom 
+                    listenTimeElement.innerText = totalListeningTime
+                    const trackListHeader = document.querySelector(`h2`)
+                    trackListHeader.appendChild(listenTimeElement)
+                    console.log(timeInMsArray)
+                }
+
+                // invoke the function to update the Dom
+                updateTotalListeningTime();
+
+                // remove songs if the remove button is clicked 
+                removeButton (songButton, newSong, breakLine, timeInMsArray, duration, updateTotalListeningTime)
+        
+                
         })
         .catch(error => alert("Sorry, this song is not available")); 
      }
@@ -142,22 +140,40 @@ function fetchPhoto(releaseId, thumbnaiElement){
     .catch(error => alert(`Sorry, the album photo is not available for this song`));
 }
 
-// function removeButton(songButton, newSong, breakLine){
-//     songButton.addEventListener(`click`, (e) => {
-//         if (e.target.innerText === `remove`){
-//         } newSong.remove()
-//           songButton.remove()
-//           breakLine.remove()
-//     })
+
+   // reduce the timeInMsArray to a single accumulated number. Then convert the total number from Milliseconds to Hours, Minutes & Seconds 
+//    function updateTotalListeningTime(timeInMsArray, listenTimeElement){ 
+//     let playTimeInMS = timeInMsArray.reduce((acc, currentValue) => acc + currentValue,0)
+
+//     const playTimeInSeconds = Math.floor(playTimeInMS / 1000);
+//     const playTimeHours = Math.floor(playTimeInSeconds / 3600);
+//     const playTimeMinutes = Math.floor(playTimeInSeconds / 60);
+//     const playTimeSeconds = playTimeInSeconds % 60;
+//     const totalListeningTime = `Your total listening time is ${playTimeHours} hrs, ${playTimeMinutes % 60} minutes & ${playTimeSeconds} seconds`;
+
+//     //append totalListeningTime to the Dom 
+//     listenTimeElement.innerText = totalListeningTime
+//     const trackListHeader = document.querySelector(`h2`)
+//     trackListHeader.appendChild(listenTimeElement)
+//     console.log(timeInMsArray)
 // }
 
 
-/* ADD MOUSEOVER FUNCTION
-- add an event listener that listens for a mouseover on the image or the song title 
-- if event target === image or song title, display song duration, release date, explicit or clean
-*/
 
-/* ADD MOUSEOUT FUNCTION
-- add event listener that listens for a mousout of an already mousedover element
-- when the mouseout happens, it no longer displays the song duration, realease date, explicit or clean
-*/
+function removeButton (songButton, newSong, breakLine, timeInMsArray, duration, updateTotalListeningTime) {
+    songButton.addEventListener(`click`, (e) => {
+    if (e.target.innerText === `remove`){
+    } newSong.remove()
+      songButton.remove()
+      breakLine.remove()
+      
+      const updatedTimeInMsArray = timeInMsArray.findIndex((time) => time === duration);
+      if (updatedTimeInMsArray !== -1){
+        
+        timeInMsArray.splice(updatedTimeInMsArray, 1);
+        console.log(timeInMsArray)
+        updateTotalListeningTime();
+      } 
+
+})
+}
