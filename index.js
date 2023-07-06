@@ -9,9 +9,12 @@ NEXT STEPS
 */
 
 
+let timeInMsArray = [];
+
 document.addEventListener(`DOMContentLoaded`, () => {
     console.log (`Dom content loaded fetch`)
     addSong(); 
+    
 }
 )
 
@@ -106,6 +109,15 @@ function addSong(){
                 // clear the song & artist inputs for the next entry 
                 songInput.value = ``;
                 artistInput.value =``; 
+
+                // push song duration to the time array to help build total palytime 
+                timeInMsArray.push(duration);
+                console.log(timeInMsArray);
+
+                // reduce the timeInmsArray to a single accumulated number
+                let playTimeInMS = timeInMsArray.reduce((acc, currentValue) => acc + currentValue,0)
+                console.log(playTimeInMS)
+               
             
         })
         .catch(error => alert("Sorry, this song is not available")); 
