@@ -32,7 +32,7 @@ function addSong(){
            // const seconds = songTime % 60;
            // const formattedTime = `${minutes}:${seconds.toString().padStart(2, `0`)}`; 
             const releaseId = recordings[0].releases[0]["release-group"].id
-            console.log(data);
+            //console.log(data);
             
              //build li element for each song 
              const newSong = document.createElement(`li`);
